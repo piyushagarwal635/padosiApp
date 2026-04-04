@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PADOSI - Sign Up</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../login.css">
+	<link rel="stylesheet" href="sign-up.css">
+</head>
+<body>
+	<div class="login-wrapper">
+		<div class="top-gradient"></div>
+
+		<div class="login-card">
+			<div class="logo-section">
+				<div class="logo-container">
+					<img src="Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" class="main-logo">
+				</div>
+				<h1 class="app-name">PADOSI</h1>
+				<p class="tagline">Aapka Apna Local Expert!</p>
+			</div>
+
+			<div class="form-section">
+				<!-- Error Message -->
+				<div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ errorMessage }}
+				</div>
+
+				<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+					<!-- Full Name Input -->
+					<div class="my-input-group">
+						<input 
+							type="text" 
+							placeholder="Full Name" 
+							class="text-input"
+							formControlName="fullName"
+							[ngClass]="{'is-invalid': fullName?.touched && fullName?.invalid}">
+						<div *ngIf="fullName?.touched && fullName?.invalid" class="validation-error">
+							<small *ngIf="fullName?.errors?.['required']">Full name is required</small>
+							<small *ngIf="fullName?.errors?.['minlength']">Name must be at least 3 characters</small>
+							<small *ngIf="fullName?.errors?.['invalidName']">Name can only contain letters and spaces</small>
+						</div>
+					</div>
+
+					<!-- Email Input -->
+					<div class="my-input-group">
+						<input 
+							type="email" 
+							placeholder="Email Address" 
+							class="text-input"
+							formControlName="email"
+							[ngClass]="{'is-invalid': email?.touched && email?.invalid}">
+						<div *ngIf="email?.touched && email?.invalid" class="validation-error">
+							<small *ngIf="email?.errors?.['required']">Email is required</small>
+							<small *ngIf="email?.errors?.['email']">Please enter a valid email address</small>
+						</div>
+					</div>
+
+					<!-- Phone Input -->
+					<div class="my-input-group">
+						<span class="country-code">📱 +91</span>
+						<input 
+							type="tel" 
+							placeholder="Enter Mobile Number" 
+							class="phone-input"
+							formControlName="phoneNumber"
+							maxlength="10"
+							[ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
+							oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+						<div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
+							<small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
+							<small *ngIf="phoneNumber?.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
+						</div>
+					</div>
+
+					<!-- Account Type Dropdown (Bootstrap Class) -->
+					<div class="my-input-group">
+						<div class="select-wrapper">
+							<select 
+								class="form-select text-input"
+								formControlName="accountType"
+								[ngClass]="{'is-invalid': accountType?.touched && accountType?.invalid}"
+								aria-label="Select account type">
+								<option value="" disabled selected>Select account type</option>
+								<option value="user">User</option>
+								<option value="worker">Worker</option>
+							</select>
+							<!-- Note: This uses Bootstrap's form-select class for consistent styling -->
+							<div *ngIf="accountType?.touched && accountType?.invalid" class="validation-error">
+								<small *ngIf="accountType?.errors?.['required']">Please select an account type</small>
+							</div>
+						</div>
+					</div>
+
+					<!-- Password Input -->
+					<div class="my-input-group">
+						<input 
+							[type]="showPasswordField ? 'text' : 'password'"
+							placeholder="Create Password" 
+							class="text-input"
+							formControlName="password"
+							[ngClass]="{'is-invalid': password?.touched && password?.invalid}">
+						<button 
+							type="button" 
+							class="btn-toggle-password"
+							(click)="togglePasswordField()">
+							{{ showPasswordField ? '👁️' : '👁️‍🗨️' }}
+						</button>
+						<!-- Password Requirements List -->
+						<div *ngIf="password?.touched && password?.invalid" class="validation-errors-list">
+							<div class="password-requirements">
+								<p class="requirement-title">Password must contain:</p>
+								<ul>
+									<li [class.valid]="password?.value?.length >= 8">✓ At least 8 characters</li>
+									<li [class.valid]="password?.value && /[A-Z]/.test(password?.value)">✓ At least one uppercase letter</li>
+									<li [class.valid]="password?.value && /[a-z]/.test(password?.value)">✓ At least one lowercase letter</li>
+									<li [class.valid]="password?.value && /\d/.test(password?.value)">✓ At least one number</li>
+									<li [class.valid]="password?.value && /[!@#$%^&*]/.test(password?.value)">✓ At least one special character (!@#$%^&*)</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<button 
+						type="submit" 
+						class="btn-otp"
+						[disabled]="loading">
+						{{ loading ? 'Creating Account...' : 'Create Account' }}
+					</button>
+				</form>
+
+				<div class="divider">
+					<span>OR</span>
+				</div>
+
+				<button class="btn-google" (click)="onGoogleSignup()">
+					<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+					Continue with Google
+				</button>
+
+				<div class="signup-link">
+					Already have an account? <a routerLink="/" class="login-link">Login</a>
+				</div>
+			</div>
+
+			<div class="footer-text">
+				By creating an account, you agree to our <br>
+				<a href="#">Terms & Privacy Policy</a>.
+			</div>
+		</div>
+	</div>
+
+	<!-- Confirmation Modal -->
+	<app-confirmation-modal 
+		[isVisible]="showModal"
+		title="Account Created Successfully"
+		message="Your account has been created and is ready to use!"
+		[details]="modalData"
+		confirmButtonText="Continue"
+		(onConfirm)="onModalConfirm()">
+	</app-confirmation-modal>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
