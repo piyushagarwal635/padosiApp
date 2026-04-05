@@ -3,19 +3,17 @@ import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
-import { ConfirmationModalComponent } from '../../components/confirmation-modal/confirmation-modal';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, ConfirmationModalComponent],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './sign-up.html',
-  styleUrl: './sign-up.css',
+  styleUrls: ['./sign-up.css'],
 })
 export class SignUp implements OnInit {
   signupForm!: FormGroup;
   loading: boolean = false;
-  showModal: boolean = false;
-  modalData: any = null;
+  
   errorMessage: string = '';
   passwordErrors: string[] = [];
   showPasswordField: boolean = false;
@@ -48,7 +46,7 @@ export class SignUp implements OnInit {
         Validators.required,
         Validators.pattern(/^[6-9]\d{9}$/)
       ]],
-      accountType: ['', Validators.required],
+      accountType: ['user', Validators.required],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
@@ -115,18 +113,12 @@ export class SignUp implements OnInit {
     this.authService.signUp(signupData).subscribe({
       next: (response) => {
         this.loading = false;
-        this.modalData = {
-          'Name': signupData.fullName,
-          'Email': signupData.email,
-          'Phone': '+91 ' + signupData.phoneNumber,
-          'Account Type': signupData.accountType.charAt(0).toUpperCase() + signupData.accountType.slice(1),
-          'Status': 'Account Created Successfully'
-        };
-        this.showModal = true;
+        // Navigate to login after successful signup
+        this.router.navigate(['/']);
       },
       error: (error) => {
         this.loading = false;
-        this.errorMessage = error.message || 'Sign up failed. Please try again.';
+        this.errorMessage = error.error?.message || 'Sign up failed. Please try again.';
       }
     });
   }
@@ -135,8 +127,7 @@ export class SignUp implements OnInit {
    * Handle modal confirmation
    */
   onModalConfirm(): void {
-    this.showModal = false;
-    // Navigate to login or dashboard
+    // (removed modal) kept for compatibility if called elsewhere
     this.router.navigate(['/']);
   }
 

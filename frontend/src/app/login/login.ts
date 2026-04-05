@@ -3,19 +3,16 @@ import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
-import { ConfirmationModalComponent } from '../components/confirmation-modal/confirmation-modal';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, ConfirmationModalComponent],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css'],
 })
 export class Login implements OnInit {
   loginForm!: FormGroup;
   loading: boolean = false;
-  showModal: boolean = false;
-  modalData: any = null;
   errorMessage: string = '';
 
   constructor(
@@ -67,12 +64,8 @@ export class Login implements OnInit {
     this.authService.login(loginData).subscribe({
       next: (response) => {
         this.loading = false;
-        this.modalData = {
-          'Phone Number': '+91 ' + loginData.phoneNumber,
-          'Status': 'OTP Sent Successfully',
-          'Message': 'Check your SMS for OTP'
-        };
-        this.showModal = true;
+        // Navigate directly to OTP verification
+        this.router.navigate(['/verify-otp']);
       },
       error: (error) => {
         this.loading = false;
@@ -85,8 +78,7 @@ export class Login implements OnInit {
    * Handle modal confirmation
    */
   onModalConfirm(): void {
-    this.showModal = false;
-    // In real app, navigate to OTP verification page
+    // (removed modal) kept for compatibility if called elsewhere
     this.router.navigate(['/verify-otp']);
   }
 
