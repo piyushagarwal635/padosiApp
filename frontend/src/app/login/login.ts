@@ -11,9 +11,12 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.css'],
 })
 export class Login implements OnInit {
+
   loginForm!: FormGroup;
   loading: boolean = false;
   errorMessage: string = '';
+
+  isOtpSent: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,68 +28,87 @@ export class Login implements OnInit {
     this.initializeForm();
   }
 
-  /**
-   * Initialize the login form with validation
-   */
   initializeForm(): void {
     this.loginForm = this.formBuilder.group({
       phoneNumber: ['', [
         Validators.required,
         Validators.pattern(/^[6-9]\d{9}$/)
-      ]]
+      ]],
+      otp: ['']
     });
   }
 
-  /**
-   * Get form control for template access
-   */
   get phoneNumber() {
     return this.loginForm.get('phoneNumber');
   }
 
-  /**
-   * Handle login form submission
-   */
+  get otp() {
+    return this.loginForm.get('otp');
+  }
+
   onSubmit(): void {
     this.errorMessage = '';
 
-    if (this.loginForm.invalid) {
-      this.errorMessage = 'Please enter a valid phone number';
-      return;
-    }
+    const phoneNumber = this.phoneNumber?.value;
+    const otpValue = this.otp?.value;
 
-    this.loading = true;
+    console.log("otp value:", otpValue);
 
-    const loginData = {
-      phoneNumber: this.loginForm.get('phoneNumber')?.value
-    };
+    // 🔥 STEP 1: SEND OTP
+    if (!this.isOtpSent) {
 
-    this.authService.login(loginData).subscribe({
-      next: (response) => {
-        this.loading = false;
-        // Navigate directly to OTP verification
-        this.router.navigate(['/verify-otp']);
-      },
-      error: (error) => {
-        this.loading = false;
-        this.errorMessage = error.message || 'Login failed. Please try again.';
+      if (this.loginForm.get('phoneNumber')?.invalid) {
+        this.errorMessage = 'Please enter a valid phone number';
+        return;
       }
-    });
+
+      this.loading = true;
+
+      this.authService.login({ phoneNumber }).subscribe({
+        next: () => {
+          this.loading = false;
+          this.isOtpSent = true;
+          localStorage.setItem('phone', phoneNumber);
+        },
+        error: (error) => {
+          this.loading = false;
+          this.errorMessage = error.error?.message || 'Error sending OTP';
+        }
+      });
+
+    } else {
+
+      // 🔥 STEP 2: VERIFY OTP
+
+      if (!otpValue || otpValue.length !== 6) {
+        this.errorMessage = 'Enter valid 6-digit OTP';
+        return;
+      }
+
+      this.loading = true;
+
+      const storedPhone = localStorage.getItem('phone');
+
+      this.authService.verifyOtp({
+        phoneNumber: storedPhone,
+        otp: otpValue   // ✅ FIX HERE
+      }).subscribe({
+        next: () => {
+          this.loading = false;
+
+          localStorage.setItem('auth_token', '123');
+
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.loading = false;
+          this.errorMessage = error.error?.message || 'Invalid OTP';
+        }
+      });
+    }
   }
 
-  /**
-   * Handle modal confirmation
-   */
-  onModalConfirm(): void {
-    // (removed modal) kept for compatibility if called elsewhere
-    this.router.navigate(['/verify-otp']);
-  }
-
-  /**
-   * Handle Google login
-   */
   onGoogleLogin(): void {
     console.log('Google login clicked - integrate with Firebase/Google OAuth');
   }
 }
-

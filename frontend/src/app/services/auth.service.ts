@@ -91,4 +91,7 @@ export class AuthService {
   login(request: LoginRequest): Observable<AuthResponse> {
   return this.http.post<AuthResponse>(`${this.apiUrl}/login`, request);
 }
+verifyOtp(data: any) {
+  return this.http.post(`${this.apiUrl}/verify-otp`, data);
+}
 }

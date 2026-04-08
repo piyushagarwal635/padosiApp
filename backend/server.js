@@ -4,7 +4,7 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const User = require("./models/User");
 require("dotenv").config();
-
+const otpStore = {}; // temp storage
 const app = express();
 
 app.use(cors());
@@ -83,22 +83,56 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { phoneNumber } = req.body;
 
-  // basic validation
   if (!phoneNumber) {
     return res.status(400).json({ message: "Phone number required" });
   }
 
-  // check user exists
   const user = await User.findOne({ phoneNumber });
 
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
 
-  // (OTP system baad me banayenge)
+  // 🔥 OTP generate
+  const otp = Math.floor(100000 + Math.random() * 900000);
+
+  // store OTP (5 min expiry)
+  otpStore[phoneNumber] = {
+    otp,
+    expires: Date.now() + 5 * 60 * 1000
+  };
+
+  console.log("🔥 OTP:", otp); // abhi console me aayega
+
   res.json({
     success: true,
-    message: "OTP sent (mock)",
-    user
+    message: "OTP sent"
+  });
+});
+
+
+app.post("/verify-otp", (req, res) => {
+  const { phoneNumber, otp } = req.body;
+  console.log("phoneNumber:", phoneNumber, "otp:", otp, "otpStore:", otpStore[phoneNumber]);
+
+  const record = otpStore[phoneNumber];
+
+  if (!record) {
+    return res.status(400).json({ message: "OTP not found" });
+  }
+
+  if (Date.now() > record.expires) {
+    return res.status(400).json({ message: "OTP expired" });
+  }
+
+  if (record.otp != otp) {
+    return res.status(400).json({ message: "Invalid OTP" });
+  }
+
+  delete otpStore[phoneNumber];
+
+  res.json({
+    success: true,
+    message: "Login successful"
   });
 });

@@ -35,11 +35,24 @@
             </div>
           </div>
 
+          <!-- 👇 YE OTP FIELD ADD KAR (phone ke niche) -->
+          <div class="my-input-group" *ngIf="isOtpSent">
+            <input 
+              type="text" 
+              placeholder="Enter OTP"
+              class="text-input"
+              formControlName="otp"
+              name="otp"
+              maxlength="6">
+          </div>
+
           <button 
             type="submit" 
             class="btn-otp"
             [disabled]="loading">
-            {{ loading ? 'Loading...' : 'Continue with OTP' }}
+
+            {{ loading ? 'Loading...' : (isOtpSent ? 'Verify OTP' : 'Continue with OTP') }}
+
             <span class="arrow" *ngIf="!loading">→</span>
           </button>
         </form>
