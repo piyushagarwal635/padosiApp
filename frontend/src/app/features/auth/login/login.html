@@ -1,0 +1,83 @@
+
+  <div class="login-wrapper">
+    <div class="top-gradient"></div>
+
+    <div class="login-card">
+      <div class="logo-section">
+        <div class="logo-container">
+          <img src="Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" class="main-logo">
+        </div>
+        <h1 class="app-name">PADOSI</h1>
+        <p class="tagline">Aapka Apna Local Expert!</p>
+      </div>
+
+      <div class="form-section">
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="my-input-group">
+            <span class="country-code">📱 +91</span>
+            <input 
+              type="tel" 
+              placeholder="Enter Mobile Number" 
+              class="phone-input"
+              formControlName="phoneNumber"
+              maxlength="10"
+              [ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+            <!-- Validation Error Messages -->
+            <div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
+              <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
+              <small *ngIf="phoneNumber?.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
+            </div>
+          </div>
+
+          <div class="my-input-group" *ngIf="isOtpSent">
+            <input 
+              type="text" 
+              placeholder="Enter OTP"
+              class="text-input"
+              formControlName="otp"
+              name="otp"
+              maxlength="6">
+          </div>
+          <div class="form-check" *ngIf="isOtpSent">
+            <input class="form-check-input" type="checkbox" formControlName="rememberMe">
+            <label class="form-check-label">
+              Remember Me
+            </label>
+          </div>
+          <button 
+            type="submit" 
+            class="btn-otp"
+            [disabled]="loading">
+
+            {{ loading ? 'Loading...' : (isOtpSent ? 'Verify OTP' : 'Continue with OTP') }}
+
+            <span class="arrow" *ngIf="!loading">→</span>
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>OR</span>
+        </div>
+
+        <button class="btn-google" (click)="onGoogleLogin()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          Continue with Google
+        </button>
+
+        <div class="signup-link">
+          New to PADOSI? <a routerLink="/signup" class="login-link">Sign Up</a>
+        </div>
+      </div>
+
+      <div class="footer-text">
+        By logging in, you agree to our <br>
+        <a href="#">Terms & Privacy Policy</a>.
+      </div>
+    </div>
+  </div>
