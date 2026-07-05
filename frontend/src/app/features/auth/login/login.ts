@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,8 @@ export class Login implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -91,10 +92,12 @@ export class Login implements OnInit {
           if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
             localStorage.setItem('phone', phoneNumber);
           }
+          this.cdr.detectChanges(); // 🔥 Force UI update
         },
         error: (error) => {
           this.loading = false;
           this.errorMessage = error.error?.message || 'Error sending OTP';
+          this.cdr.detectChanges(); // 🔥 Force UI update
         }
       });
 
@@ -131,6 +134,8 @@ export class Login implements OnInit {
             }
           }
 
+          this.cdr.detectChanges(); // 🔥 Force UI update
+
           // 🔥 ROLE BASED REDIRECT
           if (response.user.accountType === 'worker') {
             this.router.navigate(['/worker-dashboard'], { replaceUrl: true });
@@ -141,6 +146,7 @@ export class Login implements OnInit {
         error: (error) => {
           this.loading = false;
           this.errorMessage = error.error?.message || 'Invalid OTP';
+          this.cdr.detectChanges(); // 🔥 Force UI update
         }
       });
     }

@@ -1,83 +1,83 @@
+<div class="login-wrapper">
+  <!-- Animated Background Blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
 
-  <div class="login-wrapper">
-    <div class="top-gradient"></div>
+  <div class="login-card glass-panel card-3d-effect">
+    <div class="logo-section">
+      <div class="logo-container" style="width: 80px; height: 80px; background: var(--glass-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 1px solid var(--glass-border); margin-bottom: 15px; box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);">
+        <img src="/Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+      </div>
+      <h1 class="app-name gradient-text">PADOSI</h1>
+      <p class="tagline">Welcome back to the premium experience.</p>
+    </div>
 
-    <div class="login-card">
-      <div class="logo-section">
-        <div class="logo-container">
-          <img src="Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" class="main-logo">
-        </div>
-        <h1 class="app-name">PADOSI</h1>
-        <p class="tagline">Aapka Apna Local Expert!</p>
+    <div class="form-section">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
       </div>
 
-      <div class="form-section">
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
-          {{ errorMessage }}
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="my-input-group glass-input">
+          <span class="country-code">📱 +91</span>
+          <input 
+            type="tel" 
+            placeholder="Enter Mobile Number" 
+            class="phone-input"
+            formControlName="phoneNumber"
+            maxlength="10"
+            [ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        </div>
+        <div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
+          <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
+          <small *ngIf="phoneNumber?.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
         </div>
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div class="my-input-group">
-            <span class="country-code">📱 +91</span>
-            <input 
-              type="tel" 
-              placeholder="Enter Mobile Number" 
-              class="phone-input"
-              formControlName="phoneNumber"
-              maxlength="10"
-              [ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
-              oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-            <!-- Validation Error Messages -->
-            <div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
-              <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
-              <small *ngIf="phoneNumber?.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
-            </div>
-          </div>
-
-          <div class="my-input-group" *ngIf="isOtpSent">
-            <input 
-              type="text" 
-              placeholder="Enter OTP"
-              class="text-input"
-              formControlName="otp"
-              name="otp"
-              maxlength="6">
-          </div>
-          <div class="form-check" *ngIf="isOtpSent">
-            <input class="form-check-input" type="checkbox" formControlName="rememberMe">
-            <label class="form-check-label">
-              Remember Me
-            </label>
-          </div>
-          <button 
-            type="submit" 
-            class="btn-otp"
-            [disabled]="loading">
-
-            {{ loading ? 'Loading...' : (isOtpSent ? 'Verify OTP' : 'Continue with OTP') }}
-
-            <span class="arrow" *ngIf="!loading">→</span>
-          </button>
-        </form>
-
-        <div class="divider">
-          <span>OR</span>
+        <div class="my-input-group glass-input" *ngIf="isOtpSent">
+          <input 
+            type="text" 
+            placeholder="Enter OTP"
+            class="text-input phone-input"
+            formControlName="otp"
+            name="otp"
+            maxlength="6">
+        </div>
+        
+        <div class="form-check custom-checkbox" *ngIf="isOtpSent">
+          <input class="form-check-input" type="checkbox" formControlName="rememberMe" id="rememberMeCheck">
+          <label class="form-check-label" for="rememberMeCheck">
+            Remember Me
+          </label>
         </div>
 
-        <button class="btn-google" (click)="onGoogleLogin()">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-          Continue with Google
+        <button 
+          type="submit" 
+          class="btn-premium btn-full"
+          [disabled]="loading">
+          {{ loading ? 'Processing...' : (isOtpSent ? 'Verify OTP' : 'Continue with OTP') }}
+          <span class="arrow" *ngIf="!loading">→</span>
         </button>
+      </form>
 
-        <div class="signup-link">
-          New to PADOSI? <a routerLink="/signup" class="login-link">Sign Up</a>
-        </div>
+      <div class="divider">
+        <span>OR</span>
       </div>
 
-      <div class="footer-text">
-        By logging in, you agree to our <br>
-        <a href="#">Terms & Privacy Policy</a>.
+      <button class="btn-outline btn-google btn-full" (click)="onGoogleLogin()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+        Continue with Google
+      </button>
+
+      <div class="signup-link">
+        New to PADOSI? <a routerLink="/signup" class="highlight-link">Sign Up</a>
       </div>
     </div>
+
+    <div class="footer-text">
+      By logging in, you agree to our <br>
+      <a href="#">Terms & Privacy Policy</a>.
+    </div>
   </div>
+</div>

@@ -1,1 +1,138 @@
-/* You can add global styles to this file, and also import other style files */
+/* ======= GLOBAL PREMIUM CSS ======= */
+:root {
+  --bg-color: #0a0a0f;
+  --bg-gradient: radial-gradient(circle at top right, #111122, #0a0a0f 60%);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  
+  --primary-glow: #00f2fe;
+  --secondary-glow: #4facfe;
+  
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  --font-main: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-color);
+  background-image: var(--bg-gradient);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Force override Bootstrap defaults for dark theme */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+}
+p, span, a, li, label, div {
+  /* Don't override everything rigidly, but ensure readable defaults */
+}
+p {
+  color: var(--text-secondary);
+}
+a {
+  color: var(--primary-glow);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--secondary-glow);
+}
+
+/* Base Glassmorphism Class */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
+}
+
+/* Premium Button */
+.btn-premium {
+  background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow));
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 242, 254, 0.5);
+}
+
+.btn-premium:active {
+  transform: translateY(1px);
+}
+
+/* Animated Background Blob */
+.bg-blob {
+  position: absolute;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.5;
+  animation: float 10s ease-in-out infinite;
+}
+
+.bg-blob.blob-1 {
+  background: var(--primary-glow);
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  left: -100px;
+  border-radius: 50%;
+}
+
+.bg-blob.blob-2 {
+  background: var(--secondary-glow);
+  width: 500px;
+  height: 500px;
+  bottom: -150px;
+  right: -100px;
+  border-radius: 50%;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-glow);
+}

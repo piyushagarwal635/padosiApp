@@ -1,1 +1,333 @@
+/* Dashboard Layout Wrapper */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-color);
+  background-image: var(--bg-gradient);
+  color: #fff;
+}
 
+/* =========================================
+   NAVIGATION (DESKTOP SIDEBAR)
+   ========================================= */
+.nav-menu {
+  width: 260px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  border-radius: 0;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1;
+}
+
+.nav-links li {
+  padding: 12px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-links li:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.nav-links li.active {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+  color: var(--primary-glow);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.1);
+}
+
+.nav-links .icon {
+  font-size: 20px;
+}
+
+.nav-links .badge {
+  background: var(--primary-glow);
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #ef4444;
+}
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.logout-btn-mobile {
+  display: none;
+}
+
+/* =========================================
+   MAIN CONTENT AREA
+   ========================================= */
+.dashboard-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.view-section {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-glow);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+  cursor: pointer;
+}
+
+/* Earnings Card */
+.earnings-card {
+  padding: 40px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Action Grid */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.action-card {
+  padding: 25px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.action-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-glow);
+  box-shadow: 0 10px 30px rgba(0, 242, 254, 0.1);
+}
+.action-card .icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.action-card h4 {
+  margin: 0 0 5px 0;
+  color: #fff;
+}
+.action-card p {
+  margin: 0;
+  color: var(--primary-glow);
+  font-weight: 600;
+}
+
+/* Job & Transaction Cards */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.job-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+}
+.job-card:hover {
+  transform: scale(1.01);
+}
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.job-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+}
+.badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.price.badge {
+  background: rgba(0, 242, 254, 0.1);
+  color: var(--primary-glow);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+}
+.job-meta {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.job-actions {
+  display: flex;
+  gap: 10px;
+}
+.job-actions button {
+  flex: 1;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.txn-info h4 {
+  margin: 0 0 5px 0;
+  color: #fff;
+}
+.txn-info .date {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.txn-amount {
+  font-size: 18px;
+  font-weight: 700;
+}
+.txn-amount.credit { color: #10b981; } /* Green */
+.txn-amount.debit { color: #ef4444; }  /* Red */
+
+/* =========================================
+   RESPONSIVE DESIGN (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+    padding-bottom: 80px; /* Space for bottom nav */
+  }
+
+  .nav-menu {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 70px;
+    flex-direction: row;
+    padding: 0 15px;
+    border-radius: 20px 20px 0 0;
+    border: 1px solid var(--glass-border);
+    border-bottom: none;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+  }
+
+  .nav-brand {
+    display: none;
+  }
+  
+  .logout-btn {
+    display: none; /* Hide on mobile nav bar */
+  }
+  .logout-btn-mobile {
+    display: block; /* Show in profile view */
+  }
+
+  .nav-links {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+
+  .nav-links li {
+    flex-direction: column;
+    padding: 8px;
+    gap: 4px;
+    border-radius: 12px;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  
+  .nav-links li .icon {
+    font-size: 24px;
+    transition: transform 0.2s;
+  }
+  
+  .nav-links li.active .icon {
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px var(--primary-glow);
+  }
+
+  .nav-links li .label {
+    font-size: 10px;
+  }
+
+  .nav-links .badge {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+
+  .dashboard-content {
+    padding: 20px 15px;
+  }
+}

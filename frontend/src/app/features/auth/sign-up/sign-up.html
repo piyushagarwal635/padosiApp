@@ -1,141 +1,138 @@
 <div class="login-wrapper">
-		<div class="top-gradient"></div>
+  <!-- Animated Background Blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
 
-		<div class="login-card">
-			<div class="logo-section">
-				<div class="logo-container">
-					<img src="Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" class="main-logo">
-				</div>
-				<h1 class="app-name">PADOSI</h1>
-				<p class="tagline">Aapka Apna Local Expert!</p>
-			</div>
+  <div class="login-card glass-panel card-3d-effect" style="max-width: 450px;">
+    <div class="logo-section">
+      <div class="logo-container" style="width: 70px; height: 70px; background: var(--glass-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 1px solid var(--glass-border); margin-bottom: 10px; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);">
+        <img src="/Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+      </div>
+      <h1 class="app-name gradient-text" style="font-size: 28px;">PADOSI SIGN UP</h1>
+      <p class="tagline">Join the premium network.</p>
+    </div>
 
-			<div class="form-section">
-				<!-- Error Message -->
-				<div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
-					{{ errorMessage }}
-				</div>
+    <div class="form-section">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
 
-				<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-					<!-- Full Name Input -->
-					<div class="my-input-group">
-						<input 
-							type="text" 
-							placeholder="Full Name" 
-							class="text-input"
-							formControlName="fullName"
-							[ngClass]="{'is-invalid': fullName?.touched && fullName?.invalid}">
-						<div *ngIf="fullName?.touched && fullName?.invalid" class="validation-error">
-							<small *ngIf="fullName?.errors?.['required']">Full name is required</small>
-							<small *ngIf="fullName?.errors?.['minlength']">Name must be at least 3 characters</small>
-							<small *ngIf="fullName?.errors?.['invalidName']">Name can only contain letters and spaces</small>
-						</div>
-					</div>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Full Name Input -->
+        <div class="my-input-group glass-input">
+          <input 
+            type="text" 
+            placeholder="Full Name" 
+            class="phone-input"
+            formControlName="fullName"
+            [ngClass]="{'is-invalid': fullName?.touched && fullName?.invalid}">
+        </div>
+        <div *ngIf="fullName?.touched && fullName?.invalid" class="validation-error">
+          <small *ngIf="fullName?.errors?.['required']">Full name is required</small>
+          <small *ngIf="fullName?.errors?.['minlength']">Name must be at least 3 characters</small>
+        </div>
 
-					<!-- Email Input -->
-					<div class="my-input-group">
-						<input 
-							type="email" 
-							placeholder="Email Address" 
-							class="text-input"
-							formControlName="email"
-							[ngClass]="{'is-invalid': email?.touched && email?.invalid}">
-						<div *ngIf="email?.touched && email?.invalid" class="validation-error">
-							<small *ngIf="email?.errors?.['required']">Email is required</small>
-							<small *ngIf="email?.errors?.['email']">Please enter a valid email address</small>
-						</div>
-					</div>
+        <!-- Email Input -->
+        <div class="my-input-group glass-input">
+          <input 
+            type="email" 
+            placeholder="Email Address" 
+            class="phone-input"
+            formControlName="email"
+            [ngClass]="{'is-invalid': email?.touched && email?.invalid}">
+        </div>
+        <div *ngIf="email?.touched && email?.invalid" class="validation-error">
+          <small *ngIf="email?.errors?.['required']">Email is required</small>
+          <small *ngIf="email?.errors?.['email']">Please enter a valid email address</small>
+        </div>
 
-					<!-- Phone Input -->
-					<div class="my-input-group">
-						<span class="country-code">📱 +91</span>
-						<input 
-							type="tel" 
-							placeholder="Enter Mobile Number" 
-							class="phone-input"
-							formControlName="phoneNumber"
-							maxlength="10"
-							[ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
-							oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-						<div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
-							<small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
-							<small *ngIf="phoneNumber?.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
-						</div>
-					</div>
+        <!-- Phone Input -->
+        <div class="my-input-group glass-input">
+          <span class="country-code">📱 +91</span>
+          <input 
+            type="tel" 
+            placeholder="Enter Mobile Number" 
+            class="phone-input"
+            formControlName="phoneNumber"
+            maxlength="10"
+            [ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        </div>
+        <div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
+          <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
+          <small *ngIf="phoneNumber?.errors?.['pattern']">Valid 10-digit phone number required</small>
+        </div>
 
-					<!-- Account Type Dropdown (Bootstrap Class) -->
-					<div class="my-input-group">
-						<div class="select-wrapper">
-							<select 
-								class="form-select text-input"
-								formControlName="accountType"
-								[ngClass]="{'is-invalid': accountType?.touched && accountType?.invalid}"
-								aria-label="Select account type">
-								<option value="" disabled>Select account type</option>
-								<option value="user">User</option>
-								<option value="worker">Worker</option>
-							</select>
-							<!-- Note: This uses Bootstrap's form-select class for consistent styling -->
-							<div *ngIf="accountType?.touched && accountType?.invalid" class="validation-error">
-								<small *ngIf="accountType?.errors?.['required']">Please select an account type</small>
-							</div>
-						</div>
-					</div>
+        <!-- Account Type Dropdown -->
+        <div class="my-input-group glass-input" style="padding: 0; position: relative;">
+          <select 
+            class="premium-select"
+            formControlName="accountType"
+            [ngClass]="{'is-invalid': accountType?.touched && accountType?.invalid}">
+            <option value="" disabled>Select account type</option>
+            <option value="user">User</option>
+            <option value="worker">Worker</option>
+          </select>
+          <!-- Custom Arrow Icon -->
+          <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div *ngIf="accountType?.touched && accountType?.invalid" class="validation-error">
+          <small *ngIf="accountType?.errors?.['required']">Please select an account type</small>
+        </div>
 
-					<!-- Password Input -->
-					<div class="my-input-group">
-						<input 
-							[type]="showPasswordField ? 'text' : 'password'"
-							placeholder="Create Password" 
-							class="text-input"
-							formControlName="password"
-							[ngClass]="{'is-invalid': password?.touched && password?.invalid}">
-						<button 
-							type="button" 
-							class="btn-toggle-password"
-							(click)="togglePasswordField()">
-							{{ showPasswordField ? '👁️' : '👁️‍🗨️' }}
-						</button>
-						<!-- Password Requirements List -->
-						<div *ngIf="password?.touched && password?.invalid" class="validation-errors-list">
-							<div class="password-requirements">
-								<p class="requirement-title">Password must contain:</p>
-								<ul>
-									<li [class.valid]="password?.value?.length >= 8">✓ At least 8 characters</li>
-									<li [class.valid]="password?.value && /[A-Z]/.test(password?.value)">✓ At least one uppercase letter</li>
-									<li [class.valid]="password?.value && /[a-z]/.test(password?.value)">✓ At least one lowercase letter</li>
-									<li [class.valid]="password?.value && /\d/.test(password?.value)">✓ At least one number</li>
-									<li [class.valid]="password?.value && /[!@#$%^&*]/.test(password?.value)">✓ At least one special character (!@#$%^&*)</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+        <!-- Password Input -->
+        <div class="my-input-group glass-input" style="position: relative;">
+          <input 
+            [type]="showPasswordField ? 'text' : 'password'"
+            placeholder="Create Password" 
+            class="phone-input"
+            style="padding-right: 40px;"
+            formControlName="password"
+            [ngClass]="{'is-invalid': password?.touched && password?.invalid}">
+          <button 
+            type="button" 
+            class="btn-toggle-password"
+            style="position: absolute; right: 15px; background: none; border: none; color: #fff; cursor: pointer; font-size: 18px;"
+            (click)="togglePasswordField()">
+            {{ showPasswordField ? '👁️' : '👁️‍🗨️' }}
+          </button>
+        </div>
+        
+        <!-- Password Requirements -->
+        <div *ngIf="password?.touched && password?.invalid" class="validation-errors-list" style="margin-bottom: 15px; padding-left: 10px;">
+          <div class="password-requirements" style="font-size: 12px; color: var(--text-secondary);">
+            <p style="margin-bottom: 5px; color: #fff;">Password must contain:</p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li [class.valid]="password?.value?.length >= 8" [style.color]="password?.value?.length >= 8 ? '#10b981' : '#ef4444'">✓ At least 8 characters</li>
+              <li [class.valid]="password?.value && /[A-Z]/.test(password?.value)" [style.color]="password?.value && /[A-Z]/.test(password?.value) ? '#10b981' : '#ef4444'">✓ One uppercase letter</li>
+              <li [class.valid]="password?.value && /\d/.test(password?.value)" [style.color]="password?.value && /\d/.test(password?.value) ? '#10b981' : '#ef4444'">✓ One number</li>
+            </ul>
+          </div>
+        </div>
 
-					<button 
-						type="submit" 
-						class="btn-otp"
-						[disabled]="loading">
-						{{ loading ? 'Creating Account...' : 'Create Account' }}
-					</button>
-				</form>
+        <button 
+          type="submit" 
+          class="btn-premium btn-full"
+          [disabled]="loading"
+          style="margin-top: 10px;">
+          {{ loading ? 'Creating Account...' : 'Create Account' }}
+        </button>
+      </form>
 
-				<div class="divider">
-					<span>OR</span>
-				</div>
+      <div class="divider">
+        <span>OR</span>
+      </div>
 
-				<button class="btn-google" (click)="onGoogleSignup()">
-					<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-					Continue with Google
-				</button>
+      <button class="btn-outline btn-google btn-full" (click)="onGoogleSignup()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+        Continue with Google
+      </button>
 
-				<div class="signup-link">
-					Already have an account? <a routerLink="/" class="login-link">Login</a>
-				</div>
-			</div>
-
-			<div class="footer-text">
-				By creating an account, you agree to our <br>
-				<a href="#">Terms & Privacy Policy</a>.
-			</div>
-		</div>
-	</div>
+      <div class="signup-link">
+        Already have an account? <a routerLink="/login" class="highlight-link">Login</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -90,13 +90,17 @@ export class Login implements OnInit {
       const storedPhone = localStorage.getItem('phone');
 
       this.authService.verifyOtp({
-        phoneNumber: storedPhone,
-        otp: otpValue   // ✅ FIX HERE
+        phoneNumber: storedPhone || '',
+        otp: otpValue
       }).subscribe({
-        next: () => {
+        next: (response: any) => {
           this.loading = false;
 
-          localStorage.setItem('auth_token', '123');
+          if (response && response.token) {
+            localStorage.setItem('auth_token', response.token);
+          } else {
+            localStorage.setItem('auth_token', '123'); // Fallback if no token
+          }
 
           this.router.navigate(['/dashboard']);
         },

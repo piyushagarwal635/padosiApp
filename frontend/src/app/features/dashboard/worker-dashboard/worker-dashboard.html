@@ -1,1 +1,170 @@
-<p>worker-dashboard works!</p>
+<div class="dashboard-wrapper">
+  
+  <!-- DESKTOP SIDEBAR & MOBILE BOTTOM NAV -->
+  <nav class="nav-menu glass-panel">
+    <div class="nav-brand gradient-text">PADOSI</div>
+    
+    <ul class="nav-links">
+      <li [class.active]="currentTab === 'home'" (click)="setTab('home')">
+        <span class="icon">🏠</span> <span class="label">Home</span>
+      </li>
+      <li [class.active]="currentTab === 'leads'" (click)="setTab('leads')">
+        <span class="icon">📋</span> <span class="label">Leads</span>
+        <span class="badge" *ngIf="jobs.pending.length > 0">{{ jobs.pending.length }}</span>
+      </li>
+      <li [class.active]="currentTab === 'wallet'" (click)="setTab('wallet')">
+        <span class="icon">💳</span> <span class="label">Wallet</span>
+      </li>
+      <li [class.active]="currentTab === 'profile'" (click)="setTab('profile')">
+        <span class="icon">👤</span> <span class="label">Profile</span>
+      </li>
+    </ul>
+
+    <button class="btn-outline logout-btn" (click)="logout()">
+      <span class="icon">🚪</span> <span class="label">Logout</span>
+    </button>
+  </nav>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="dashboard-content">
+    
+    <!-- 1. HOME VIEW -->
+    <div class="view-section" *ngIf="currentTab === 'home'">
+      <header class="dashboard-header">
+        <div>
+          <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">Radhe-Radhe,</p>
+          <h1 style="margin: 0; font-size: 24px; color: #fff;">
+            {{ profile?.fullName || 'Worker' }} 🛠️
+          </h1>
+        </div>
+        <div class="avatar" (click)="setTab('profile')">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Worker" alt="Avatar">
+        </div>
+      </header>
+
+      <div class="earnings-card glass-panel card-3d-effect" style="margin-top: 20px;">
+        <p style="color: rgba(255,255,255,0.8); margin-bottom: 5px;">Today's Kamai</p>
+        <h2 style="font-size: 36px; margin: 0; color: #fff;">₹ {{ wallet.balance }}</h2>
+        <div class="glow-orb" style="right: -20px; top: -20px; width: 150px; height: 150px; opacity: 0.3;"></div>
+      </div>
+
+      <h3 style="margin-top: 30px; margin-bottom: 15px;">Quick Actions</h3>
+      <div class="action-grid">
+        <div class="action-card glass-panel" (click)="setTab('leads')">
+          <div class="icon">🔔</div>
+          <h4>New Orders</h4>
+          <p>{{ jobs.pending.length }} pending</p>
+        </div>
+        <div class="action-card glass-panel" (click)="setTab('profile')">
+          <div class="icon">⭐</div>
+          <h4>Your Rating</h4>
+          <p>{{ profile?.rating || 'New' }} / 5.0</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. LEADS VIEW -->
+    <div class="view-section" *ngIf="currentTab === 'leads'">
+      <h2 style="margin-bottom: 20px;">Live Job Leads</h2>
+      
+      <div *ngIf="jobs.pending.length === 0" class="empty-state glass-panel">
+        <p>No new jobs around you right now. Take a break! ☕</p>
+      </div>
+
+      <div class="job-card glass-panel" *ngFor="let job of jobs.pending">
+        <div class="job-header">
+          <h3>{{ job.title }}</h3>
+          <span class="price badge">₹ {{ job.price }}</span>
+        </div>
+        <p class="desc">{{ job.description }}</p>
+        <div class="job-meta">
+          <span>📍 {{ job.address }} ({{ job.distance }})</span>
+        </div>
+        <div class="job-actions">
+          <button class="btn-premium" (click)="acceptJob(job.id)">Accept Job</button>
+          <button class="btn-outline">Decline</button>
+        </div>
+      </div>
+      
+      <h3 style="margin-top: 40px; margin-bottom: 20px;">Active / Accepted Jobs</h3>
+      <div *ngIf="jobs.active.length === 0" class="empty-state glass-panel">
+        <p>No active jobs.</p>
+      </div>
+      <div class="job-card glass-panel" *ngFor="let job of jobs.active" style="border-left: 4px solid var(--primary-glow);">
+        <div class="job-header">
+          <h3>{{ job.title }}</h3>
+          <span class="badge" style="background: rgba(0, 242, 254, 0.2); color: var(--primary-glow);">Accepted</span>
+        </div>
+        <p><strong>Customer:</strong> {{ job.customer?.fullName }} ({{ job.customer?.phoneNumber }})</p>
+        <p><strong>Address:</strong> {{ job.address }}</p>
+        <button class="btn-outline" style="width: 100%; margin-top: 10px;">Mark Completed</button>
+      </div>
+    </div>
+
+    <!-- 3. WALLET VIEW -->
+    <div class="view-section" *ngIf="currentTab === 'wallet'">
+      <h2 style="margin-bottom: 20px;">My Wallet</h2>
+      
+      <div class="wallet-balance glass-panel" style="text-align: center; padding: 40px 20px;">
+        <p style="color: var(--text-secondary); margin-bottom: 10px;">Total Available Balance</p>
+        <h1 class="gradient-text" style="font-size: 48px; margin: 0;">₹ {{ wallet.balance }}</h1>
+        <button class="btn-premium" style="margin-top: 20px;">Withdraw to Bank</button>
+      </div>
+
+      <h3 style="margin-top: 30px; margin-bottom: 15px;">Transaction History</h3>
+      <div class="transaction-list">
+        <div *ngIf="wallet.transactions.length === 0" class="empty-state glass-panel">
+          <p>No transactions yet.</p>
+        </div>
+        
+        <div class="transaction-item glass-panel" *ngFor="let txn of wallet.transactions">
+          <div class="txn-info">
+            <h4>{{ txn.description }}</h4>
+            <span class="date">{{ txn.date | date:'short' }}</span>
+          </div>
+          <div class="txn-amount" [class.credit]="txn.type === 'credit'" [class.debit]="txn.type === 'debit'">
+            {{ txn.type === 'credit' ? '+' : '-' }} ₹{{ txn.amount }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. PROFILE VIEW -->
+    <div class="view-section" *ngIf="currentTab === 'profile'">
+      <h2 style="margin-bottom: 20px;">My Profile</h2>
+      
+      <div class="profile-card glass-panel" style="text-align: center; padding: 30px 20px;">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Worker" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%; background: var(--glass-bg); padding: 10px; margin-bottom: 15px;">
+        <h3>{{ profile?.fullName }}</h3>
+        <p style="color: var(--primary-glow);">Premium Worker</p>
+        
+        <div class="profile-stats" style="display: flex; justify-content: center; gap: 40px; margin-top: 20px;">
+          <div>
+            <h2 style="margin:0;">{{ profile?.rating || '5.0' }}</h2>
+            <p style="color: var(--text-secondary); font-size: 14px;">Rating</p>
+          </div>
+          <div>
+            <h2 style="margin:0;">{{ profile?.jobsCompleted || 0 }}</h2>
+            <p style="color: var(--text-secondary); font-size: 14px;">Jobs Done</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-list" style="margin-top: 20px;">
+        <div class="glass-panel" style="padding: 15px 20px; margin-bottom: 10px; display: flex; justify-content: space-between;">
+          <span>📞 Phone Number</span>
+          <span style="color: var(--text-secondary);">{{ profile?.phoneNumber }}</span>
+        </div>
+        <div class="glass-panel" style="padding: 15px 20px; margin-bottom: 10px; display: flex; justify-content: space-between;">
+          <span>📧 Email</span>
+          <span style="color: var(--text-secondary);">{{ profile?.email }}</span>
+        </div>
+      </div>
+      
+      <button class="btn-outline logout-btn-mobile" style="width: 100%; margin-top: 30px;" (click)="logout()">
+        Log Out
+      </button>
+    </div>
+
+  </main>
+</div>

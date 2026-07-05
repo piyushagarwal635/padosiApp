@@ -1,0 +1,241 @@
+<div class="landing-wrapper">
+  <!-- Animated Background Blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <!-- Navbar -->
+  <nav class="glass-navbar">
+    <div class="nav-container">
+      <!-- Hamburger Icon -->
+      <div class="hamburger-menu" (click)="toggleMenu()" [class.open]="isMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+        <img src="/Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" style="height: 40px; border-radius: 50%;">
+        <h1 class="gradient-text" style="font-size: 24px; margin: 0;">PADOSI</h1>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn-premium login-btn" (click)="onGetStarted()">
+          <svg *ngIf="!isLoggedIn" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          <span *ngIf="!isLoggedIn">Login</span>
+          <span *ngIf="isLoggedIn">Dashboard</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Side Drawer Menu -->
+  <div class="side-drawer" [class.open]="isMenuOpen">
+    <div class="drawer-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="/Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" style="height: 30px; border-radius: 50%;">
+        <h2 class="gradient-text" style="margin: 0;">PADOSI</h2>
+      </div>
+      <button class="close-btn" (click)="toggleMenu()">×</button>
+    </div>
+    <ul class="drawer-links">
+      <li><a href="#hero" (click)="toggleMenu()">Home</a></li>
+      <li><a href="#about" (click)="toggleMenu()">About Us</a></li>
+      <li><a href="#services" (click)="toggleMenu()">Services</a></li>
+      <li><a href="#contact" (click)="toggleMenu()">Contact Us</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <button class="btn-premium btn-full" routerLink="/signup" (click)="toggleMenu()">Join Now</button>
+    </div>
+  </div>
+  <div class="drawer-overlay" *ngIf="isMenuOpen" (click)="toggleMenu()"></div>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-content">
+      <div class="badge-glass">✨ The #1 Local Service App</div>
+      <h1 class="hero-title">
+        Aapka Apna <br>
+        <span class="gradient-text type-effect">Local Expert!</span>
+      </h1>
+      <p class="hero-subtitle">
+        Connecting you with the best hyper-local service providers in your neighborhood. Fast, reliable, and premium.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn-premium lg" (click)="onGetStarted()">
+          Get Started <span class="arrow">→</span>
+        </button>
+        <a href="#services" class="btn-outline lg">Explore Services</a>
+      </div>
+    </div>
+
+    <!-- 3D Element Showcase -->
+    <div class="hero-visual">
+      <div class="card-3d-wrapper">
+        <div class="card-3d glass-panel">
+          <div class="floating-badge badge-1">⭐ 4.9 Rated</div>
+          <div class="floating-badge badge-2">⚡ 30 Min Delivery</div>
+          <img src="/Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 0 15px var(--primary-glow);">
+          <h3>Premium Services</h3>
+          <p>Book experts in seconds.</p>
+          <div class="glow-orb"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="content-section">
+    <div class="section-header text-center">
+      <h2 class="section-title">Our <span class="gradient-text">Premium Services</span></h2>
+      <p class="section-subtitle">Everything you need, right at your doorstep.</p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card glass-panel card-hover">
+        <div class="icon-wrapper">🔧</div>
+        <h3>Plumbing</h3>
+        <p>Expert fixes for all your pipe and tap issues.</p>
+      </div>
+      <div class="service-card glass-panel card-hover">
+        <div class="icon-wrapper">⚡</div>
+        <h3>Electrical</h3>
+        <p>Safe and reliable electrical repairs and installations.</p>
+      </div>
+      <div class="service-card glass-panel card-hover">
+        <div class="icon-wrapper">🧹</div>
+        <h3>Cleaning</h3>
+        <p>Deep cleaning services for a spotless home.</p>
+      </div>
+      <div class="service-card glass-panel card-hover">
+        <div class="icon-wrapper">❄️</div>
+        <h3>AC Repair</h3>
+        <p>Stay cool with our rapid AC maintenance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="content-section alt-bg">
+    <div class="about-container">
+      <div class="about-visual">
+        <div class="glass-panel huge-glass">
+          <div class="glow-orb orb-large"></div>
+          <h2 class="gradient-text">PADOSI</h2>
+          <p style="color: var(--text-secondary) !important;">Your Neighborhood Network</p>
+        </div>
+      </div>
+      <div class="about-content">
+        <h2 class="section-title">About <span class="gradient-text">Us</span></h2>
+        <p>We believe that finding reliable help shouldn't be a hassle. PADOSI was built to bridge the gap between skilled local workers and households needing quick, premium services.</p>
+        <p>Our platform empowers local talent while giving customers peace of mind with verified, top-tier professionals.</p>
+        <ul class="feature-list">
+          <li>✔️ Verified Professionals</li>
+          <li>✔️ Transparent Pricing</li>
+          <li>✔️ Instant Booking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section id="contact" class="content-section text-center">
+    <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+    <p class="section-subtitle mb-4">Have questions? We're here to help.</p>
+    
+    <div class="contact-card glass-panel">
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="icon">📧</span>
+          <p>support@padosiapp.com</p>
+        </div>
+        <div class="contact-item">
+          <span class="icon">📞</span>
+          <p>+91 98765 43210</p>
+        </div>
+        <div class="contact-item">
+          <span class="icon">📍</span>
+          <p>New Delhi, India</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Footer -->
+  <footer class="premium-footer glass-panel" style="margin-top: auto; padding: 60px 24px 30px; border-radius: 40px 40px 0 0; border-bottom: none; border-left: none; border-right: none;">
+    <div class="footer-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left;">
+      
+      <!-- Brand & About -->
+      <div class="footer-brand">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <img src="/Gemini_Generated_Image_7k0ftp7k0ftp7k0f.png" alt="Padosi Logo" style="height: 40px; border-radius: 50%;">
+          <h2 class="gradient-text" style="margin: 0; font-size: 24px;">PADOSI</h2>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+          Aapka Apna Local Expert. Connecting neighborhoods with reliable, premium service professionals instantly.
+        </p>
+        <div class="social-links" style="display: flex; gap: 15px;">
+          <a href="#" class="social-icon">🔵</a>
+          <a href="#" class="social-icon">📸</a>
+          <a href="#" class="social-icon">🐦</a>
+          <a href="#" class="social-icon">💼</a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-links">
+        <h3 style="color: #fff; margin-bottom: 20px; font-size: 18px;">Quick Links</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 12px;"><a href="#hero" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">Home</a></li>
+          <li style="margin-bottom: 12px;"><a href="#about" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">About Us</a></li>
+          <li style="margin-bottom: 12px;"><a href="#services" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">Our Services</a></li>
+          <li style="margin-bottom: 12px;"><a href="#contact" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-links">
+        <h3 style="color: #fff; margin-bottom: 20px; font-size: 18px;">Top Services</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 12px;"><a href="#" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">Plumbing & Fixing</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">Electrical Repair</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">AC Maintenance</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;">Home Cleaning</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-contact">
+        <h3 style="color: #fff; margin-bottom: 20px; font-size: 18px;">Contact Us</h3>
+        <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+          <span style="font-size: 20px;">📞</span>
+          <div>
+            <p style="margin: 0; color: #fff; font-weight: 600;">Phone</p>
+            <p style="margin: 0; color: var(--text-secondary);">+91 9897673276</p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+          <span style="font-size: 20px;">📧</span>
+          <div>
+            <p style="margin: 0; color: #fff; font-weight: 600;">Email</p>
+            <p style="margin: 0; color: var(--text-secondary);">padosiapp@gmail.com</p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 15px;">
+          <span style="font-size: 20px;">📍</span>
+          <div>
+            <p style="margin: 0; color: #fff; font-weight: 600;">Location</p>
+            <p style="margin: 0; color: var(--text-secondary);">New Delhi, India</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div style="max-width: 1200px; margin: 50px auto 0; padding-top: 25px; border-top: 1px solid var(--glass-border); text-align: center;">
+      <p style="color: var(--text-secondary); font-size: 14px; margin: 0;">&copy; 2026 PADOSI Inc. All rights reserved. Premium Hyper-local Services.</p>
+    </div>
+  </footer>
+</div>

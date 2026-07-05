@@ -1,69 +1,74 @@
-<div class="pro-container">
-  <header class="glass-header">
-    <div class="user-profile">
-      <div class="avatar-wrapper">
-        <img src="https://i.pravatar.cc/150?u=worker1" alt="Rajesh">
-        <div class="online-indicator"></div>
+<div class="dashboard-wrapper">
+  <!-- Animated Background Blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <header class="glass-navbar" style="position: relative; border-radius: 20px; margin-bottom: 30px;">
+    <div class="nav-container" style="padding: 15px 24px;">
+      <div class="user-profile" style="display: flex; align-items: center; gap: 15px;">
+        <div class="avatar-wrapper">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow)); display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; color: #fff;">
+            U
+          </div>
+        </div>
+        <div class="welcome">
+          <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">Welcome back,</p>
+          <h1 style="margin: 0; font-size: 20px; color: #fff;">Padosi User ✨</h1>
+        </div>
       </div>
-      <div class="welcome">
-        <p>Radhe-Radhe,</p>
-        <h1>Rajesh Expert 🛠️</h1>
-      </div>
-    </div>
-    <div class="quick-toggle">
-      <div class="custom-switch" >
-        <div class="switch-ball"></div>
-      </div>
+      <button class="btn-outline" style="padding: 8px 16px; font-size: 14px; border-color: #ef4444; color: #ef4444;" (click)="logout()">Logout</button>
     </div>
   </header>
 
-  <div class="earning-card">
-    <div class="card-content">
-      <p>Total Kamai (Today)</p>
-      <h2>₹2,840.00</h2>
-      <div class="mini-graph">
-        <span class="up-arrow">▲ 15%</span> vs Kal se behtar
+  <div class="dashboard-content" style="max-width: 1000px; margin: 0 auto;">
+    
+    <!-- Search Banner -->
+    <div class="search-banner glass-panel" style="padding: 40px; text-align: center; margin-bottom: 40px; position: relative; overflow: hidden;">
+      <div class="glow-orb" style="top: -50px; right: -50px;"></div>
+      <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">What do you need help with?</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 30px;">Book premium experts in your neighborhood.</p>
+      
+      <div class="search-bar" style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto;">
+        <input type="text" placeholder="Search for AC repair, Plumber, Electrician..." style="flex: 1; padding: 16px 24px; border-radius: 50px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: #fff; font-size: 16px; outline: none;" class="glass-input-focus">
+        <button class="btn-premium" style="padding: 0 30px; border-radius: 50px;">🔍 Search</button>
       </div>
     </div>
-    <div class="card-icon">💰</div>
+
+    <!-- Categories Grid -->
+    <h3 style="font-size: 24px; margin-bottom: 20px;">Top Categories</h3>
+    <div class="categories-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+      
+      <div class="glass-panel card-hover" style="padding: 30px 20px; text-align: center; cursor: pointer;">
+        <div style="font-size: 40px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--primary-glow));">🔧</div>
+        <h4 style="font-size: 18px; color: #fff; margin-bottom: 5px;">Plumber</h4>
+        <p style="font-size: 12px; color: var(--text-secondary);">45 Experts near you</p>
+      </div>
+
+      <div class="glass-panel card-hover" style="padding: 30px 20px; text-align: center; cursor: pointer;">
+        <div style="font-size: 40px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--primary-glow));">⚡</div>
+        <h4 style="font-size: 18px; color: #fff; margin-bottom: 5px;">Electrician</h4>
+        <p style="font-size: 12px; color: var(--text-secondary);">32 Experts near you</p>
+      </div>
+
+      <div class="glass-panel card-hover" style="padding: 30px 20px; text-align: center; cursor: pointer;">
+        <div style="font-size: 40px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--primary-glow));">❄️</div>
+        <h4 style="font-size: 18px; color: #fff; margin-bottom: 5px;">AC Repair</h4>
+        <p style="font-size: 12px; color: var(--text-secondary);">18 Experts near you</p>
+      </div>
+
+      <div class="glass-panel card-hover" style="padding: 30px 20px; text-align: center; cursor: pointer;">
+        <div style="font-size: 40px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--primary-glow));">🧹</div>
+        <h4 style="font-size: 18px; color: #fff; margin-bottom: 5px;">Cleaning</h4>
+        <p style="font-size: 12px; color: var(--text-secondary);">25 Experts near you</p>
+      </div>
+
+    </div>
+
+    <!-- Active Bookings -->
+    <h3 style="font-size: 24px; margin-bottom: 20px;">Your Active Bookings</h3>
+    <div class="glass-panel" style="padding: 30px; text-align: center; border-style: dashed;">
+      <p style="color: var(--text-secondary); font-size: 16px;">You don't have any active bookings right now.</p>
+    </div>
+
   </div>
-
-  <div class="action-grid">
-    <div class="a-box active-leads">
-      <span class="count">3</span>
-      <p>Naye Orders</p>
-    </div>
-    <div class="a-box ratings">
-      <span class="count">4.9</span>
-      <p>User Rating</p>
-    </div>
-  </div>
-
-  <section class="live-leads">
-    <div class="section-title">
-      <h3>Live Requests Near You</h3>
-      <div class="radar"></div>
-    </div>
-
-    <div class="job-card">
-      <div class="job-header">
-        <span class="tag">URGENT</span>
-        <span class="dist">📍 500m Dur</span>
-      </div>
-      <h4>Kitchen Sink Leakage</h4>
-      <p class="address">A-12, Kamla Nagar, Agra</p>
-      <div class="job-footer">
-        <button class="btn-decline">Nahi Karna</button>
-        <button class="btn-accept">Accept & Start</button>
-      </div>
-    </div>
-  </section>
-
-  <nav class="pro-nav">
-    <div class="nav-btn active">📊</div>
-    <div class="nav-btn">📅</div>
-    <div class="nav-btn center-wallet">💸</div>
-    <div class="nav-btn">💬</div>
-    <div class="nav-btn">🚪</div>
-  </nav>
 </div>

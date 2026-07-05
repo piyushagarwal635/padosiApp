@@ -30,7 +30,7 @@ export class AuthService {
   private platformId = inject(PLATFORM_ID);
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = 'http://localhost:5001';
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();

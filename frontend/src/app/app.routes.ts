@@ -4,11 +4,15 @@ import { SignUp } from './features/auth/sign-up/sign-up';
 import { UserDashboard } from './features/dashboard/user-dashboard/user-dashboard';
 import { WorkerDashboard } from './features/dashboard/worker-dashboard/worker-dashboard'; // 🔥 ADD
 import { AuthGuard } from './core/guards/auth.guard'; // 🔥 ADD
+import { Landing } from './features/landing/landing';
 
 export const routes: Routes = [
 
-  // 🔐 Login always first
-  { path: '', component: Login },
+  // 🌍 Landing Page (Dashboard)
+  { path: '', component: Landing },
+
+  // 🔐 Login
+  { path: 'login', component: Login },
 
   // 📝 Signup
   { path: 'signup', component: SignUp },
