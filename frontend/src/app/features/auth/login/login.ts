@@ -60,11 +60,11 @@ export class Login implements OnInit {
   }
 
   get phoneNumber() {
-    return this.loginForm.get('phoneNumber');
+    return this.loginForm.get('phoneNumber')!;
   }
 
   get otp() {
-    return this.loginForm.get('otp');
+    return this.loginForm.get('otp')!;
   }
 
   onSubmit(): void {

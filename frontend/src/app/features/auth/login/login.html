@@ -27,12 +27,12 @@
             class="phone-input"
             formControlName="phoneNumber"
             maxlength="10"
-            [ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
+            [ngClass]="{'is-invalid': phoneNumber.touched && phoneNumber.invalid}"
             oninput="this.value = this.value.replace(/[^0-9]/g, '');">
         </div>
-        <div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
-          <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
-          <small *ngIf="phoneNumber?.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
+        <div *ngIf="phoneNumber.touched && phoneNumber.invalid" class="validation-error">
+          <small *ngIf="phoneNumber.errors?.['required']">Phone number is required</small>
+          <small *ngIf="phoneNumber.errors?.['pattern']">Please enter a valid 10-digit phone number</small>
         </div>
 
         <div class="my-input-group glass-input" *ngIf="isOtpSent">

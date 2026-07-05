@@ -27,11 +27,11 @@
             placeholder="Full Name" 
             class="phone-input"
             formControlName="fullName"
-            [ngClass]="{'is-invalid': fullName?.touched && fullName?.invalid}">
+            [ngClass]="{'is-invalid': fullName.touched && fullName.invalid}">
         </div>
-        <div *ngIf="fullName?.touched && fullName?.invalid" class="validation-error">
-          <small *ngIf="fullName?.errors?.['required']">Full name is required</small>
-          <small *ngIf="fullName?.errors?.['minlength']">Name must be at least 3 characters</small>
+        <div *ngIf="fullName.touched && fullName.invalid" class="validation-error">
+          <small *ngIf="fullName.errors?.['required']">Full name is required</small>
+          <small *ngIf="fullName.errors?.['minlength']">Name must be at least 3 characters</small>
         </div>
 
         <!-- Email Input -->
@@ -41,11 +41,11 @@
             placeholder="Email Address" 
             class="phone-input"
             formControlName="email"
-            [ngClass]="{'is-invalid': email?.touched && email?.invalid}">
+            [ngClass]="{'is-invalid': email.touched && email.invalid}">
         </div>
-        <div *ngIf="email?.touched && email?.invalid" class="validation-error">
-          <small *ngIf="email?.errors?.['required']">Email is required</small>
-          <small *ngIf="email?.errors?.['email']">Please enter a valid email address</small>
+        <div *ngIf="email.touched && email.invalid" class="validation-error">
+          <small *ngIf="email.errors?.['required']">Email is required</small>
+          <small *ngIf="email.errors?.['email']">Please enter a valid email address</small>
         </div>
 
         <!-- Phone Input -->
@@ -57,12 +57,12 @@
             class="phone-input"
             formControlName="phoneNumber"
             maxlength="10"
-            [ngClass]="{'is-invalid': phoneNumber?.touched && phoneNumber?.invalid}"
+            [ngClass]="{'is-invalid': phoneNumber.touched && phoneNumber.invalid}"
             oninput="this.value = this.value.replace(/[^0-9]/g, '');">
         </div>
-        <div *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="validation-error">
-          <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required</small>
-          <small *ngIf="phoneNumber?.errors?.['pattern']">Valid 10-digit phone number required</small>
+        <div *ngIf="phoneNumber.touched && phoneNumber.invalid" class="validation-error">
+          <small *ngIf="phoneNumber.errors?.['required']">Phone number is required</small>
+          <small *ngIf="phoneNumber.errors?.['pattern']">Valid 10-digit phone number required</small>
         </div>
 
         <!-- Account Type Dropdown -->
@@ -70,7 +70,7 @@
           <select 
             class="premium-select"
             formControlName="accountType"
-            [ngClass]="{'is-invalid': accountType?.touched && accountType?.invalid}">
+            [ngClass]="{'is-invalid': accountType.touched && accountType.invalid}">
             <option value="" disabled>Select account type</option>
             <option value="user">User</option>
             <option value="worker">Worker</option>
@@ -78,8 +78,8 @@
           <!-- Custom Arrow Icon -->
           <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
-        <div *ngIf="accountType?.touched && accountType?.invalid" class="validation-error">
-          <small *ngIf="accountType?.errors?.['required']">Please select an account type</small>
+        <div *ngIf="accountType.touched && accountType.invalid" class="validation-error">
+          <small *ngIf="accountType.errors?.['required']">Please select an account type</small>
         </div>
 
         <!-- Password Input -->
@@ -90,7 +90,7 @@
             class="phone-input"
             style="padding-right: 40px;"
             formControlName="password"
-            [ngClass]="{'is-invalid': password?.touched && password?.invalid}">
+            [ngClass]="{'is-invalid': password.touched && password.invalid}">
           <button 
             type="button" 
             class="btn-toggle-password"
@@ -101,13 +101,13 @@
         </div>
         
         <!-- Password Requirements -->
-        <div *ngIf="password?.touched && password?.invalid" class="validation-errors-list" style="margin-bottom: 15px; padding-left: 10px;">
+        <div *ngIf="password.touched && password.invalid" class="validation-errors-list" style="margin-bottom: 15px; padding-left: 10px;">
           <div class="password-requirements" style="font-size: 12px; color: var(--text-secondary);">
             <p style="margin-bottom: 5px; color: #fff;">Password must contain:</p>
             <ul style="list-style: none; padding: 0; margin: 0;">
-              <li [class.valid]="password?.value?.length >= 8" [style.color]="password?.value?.length >= 8 ? '#10b981' : '#ef4444'">✓ At least 8 characters</li>
-              <li [class.valid]="password?.value && /[A-Z]/.test(password?.value)" [style.color]="password?.value && /[A-Z]/.test(password?.value) ? '#10b981' : '#ef4444'">✓ One uppercase letter</li>
-              <li [class.valid]="password?.value && /\d/.test(password?.value)" [style.color]="password?.value && /\d/.test(password?.value) ? '#10b981' : '#ef4444'">✓ One number</li>
+              <li [class.valid]="password.value?.length >= 8" [style.color]="password.value?.length >= 8 ? '#10b981' : '#ef4444'">✓ At least 8 characters</li>
+              <li [class.valid]="password.value && /[A-Z]/.test(password.value)" [style.color]="password.value && /[A-Z]/.test(password.value) ? '#10b981' : '#ef4444'">✓ One uppercase letter</li>
+              <li [class.valid]="password.value && /\d/.test(password.value)" [style.color]="password.value && /\d/.test(password.value) ? '#10b981' : '#ef4444'">✓ One number</li>
             </ul>
           </div>
         </div>

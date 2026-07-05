@@ -72,11 +72,11 @@ export class SignUp implements OnInit {
     return null;
   }
 
-  get fullName() { return this.signupForm.get('fullName'); }
-  get email() { return this.signupForm.get('email'); }
-  get phoneNumber() { return this.signupForm.get('phoneNumber'); }
-  get accountType() { return this.signupForm.get('accountType'); }
-  get password() { return this.signupForm.get('password'); }
+  get fullName() { return this.signupForm.get('fullName')!; }
+  get email() { return this.signupForm.get('email')!; }
+  get phoneNumber() { return this.signupForm.get('phoneNumber')!; }
+  get accountType() { return this.signupForm.get('accountType')!; }
+  get password() { return this.signupForm.get('password')!; }
 
   onSubmit(): void {
     this.errorMessage = '';
